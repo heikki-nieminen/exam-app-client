@@ -30,7 +30,7 @@ const Navigation = (props) => {
 			<ul className="nav right">
 				{content.user.loggedIn ?
 					<li>
-						<Link to='/' onClick={() => {props.dispatch({type: "LOGOUT"})}}>Kirjaudu ulos</Link>
+						<Link to='/' onClick={() => {dispatch({type: "LOGOUT"})}}>Kirjaudu ulos</Link>
 					</li>
 					:
 					<>

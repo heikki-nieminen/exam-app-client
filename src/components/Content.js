@@ -5,6 +5,8 @@ import {useContext, useEffect} from "react"
 import {ContentContext, ContentDispatchContext} from "./context/ContentContext"
 import axios from "axios"
 import {Home} from "../client/Home"
+import {Exams} from "../client/Exams"
+import {NotFound} from "./NotFound"
 const server = "https://localhost:8080"
 
 
@@ -12,7 +14,14 @@ const ProtectedRoute = ({isAdmin}) =>{
 	if(isAdmin){
 		return <Outlet/>
 	}
-	return <Navigate to="/"/>
+	return <Navigate to={'/'}/>
+}
+
+const UserRoute = ({isLoggedIn}) =>{
+	if(isLoggedIn){
+		return <Outlet/>
+	}
+	return <Navigate to={'/'}/>
 }
 
 const Content = () => {
@@ -46,7 +55,11 @@ const Content = () => {
 	
 	return(<div>
 		<Routes>
+			<Route path="*" element={<NotFound/>}/>
 			<Route path="/" element={<Home/>}/>
+			<Route element={<UserRoute isLoggedIn={content.user.loggedIn}/> }>
+				<Route path="exams"  element={<Exams/>}/>
+			</Route>
 			<Route path="admin" element={<ProtectedRoute isAdmin={content.user.isAdmin}/>}>
 				<Route path="exams" element={<AdminExams/>}/>
 			</Route>
