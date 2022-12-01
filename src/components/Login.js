@@ -1,22 +1,24 @@
 import axios from "axios"
 import {useContext} from "react"
 import {ContentContext, ContentDispatchContext} from "./context/ContentContext"
-const server = "https://localhost:8080"
+
 const Login = (props) => {
 	const content = useContext(ContentContext)
 	const dispatch = useContext(ContentDispatchContext)
 	
 	const login = async (username, password) => {
 		try {
-			console.log("???")
 			let res = await axios({
-				method: 'post', url: server + '/login', data: {
+				method: 'post', url: content.server + '/login', data: {
 					username: username, password: password
 				}
 			})
-			console.log("?????")
 			if (res.data.correct === true) {
 				console.log(res.data)
+				
+				localStorage.setItem('access_token', res.data.token)
+				axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+				
 				dispatch({type: "LOGIN", payload: {id: res.data.id, role: res.data.role, token: res.data.token}})
 				//props.dispatch({type: "SET_USER", payload: {role: res.data.role, id: res.data.id}})
 				props.setLoginState(false)

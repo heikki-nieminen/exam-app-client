@@ -16,7 +16,7 @@ const Navigation = (props) => {
 	return (
 		<div className="nav-bar">
 			<ul className="nav">
-				<li><Link to={adminPrefix+'/'}>Etusivu</Link></li>
+				<li><Link to={'/'}>Etusivu</Link></li>
 				{content.user.loggedIn &&
 					<>
 						<li><Link to={adminPrefix+'/exams'}>Tentit</Link></li>

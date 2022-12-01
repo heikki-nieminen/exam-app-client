@@ -1,13 +1,17 @@
-import {Link} from "react-router-dom"
+import {Link, Navigate} from "react-router-dom"
 import {useContext, useEffect, useState} from "react"
 import axios from "axios"
 import {ContentContext, ContentDispatchContext} from "../components/context/ContentContext"
+import {AccessDenied} from "../client/AccessDenied"
+
 const server = "https://localhost:8080"
 
 const AdminExams = (props) => {
 	const [addExam, setAddExam] = useState(false)
 	const content = useContext(ContentContext)
 	const dispatch = useContext(ContentDispatchContext)
+	
+	console.log("ADMIN EXAMS")
 	
 	const getExams = async () => {
 		try {
@@ -37,9 +41,8 @@ const AdminExams = (props) => {
 			console.log(err)
 		}
 	}
-	
-	return (
-		<div>
+	if (content.user.isAdmin) {
+		return (<div>
 			<ul>{content.exams.map((item, index) => {
 				return (<li key={index}><Link key={index} to={`/exam?id=${item.id}`} onClick={() => {
 					dispatch({type: "INITIALIZE_DATA", payload: false})
@@ -62,8 +65,9 @@ const AdminExams = (props) => {
 				:
 				<AddExam setAddExam={setAddExam} server={server} dispatch={dispatch}/>
 			}
-		</div>
-	)
+		</div>)
+	}
+	return <AccessDenied/>
 }
 
 const AddExam = (props) => {

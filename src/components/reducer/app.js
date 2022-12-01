@@ -1,5 +1,3 @@
-import axios from "axios"
-
 export const reducer = (state, action) => {
 	switch (action.type) {
 		case "INITIALIZE_DATA": {
@@ -11,9 +9,6 @@ export const reducer = (state, action) => {
 		}
 		case "LOGIN": {
 			let stateCopy = JSON.parse(JSON.stringify(state))
-			console.log(action.payload.token)
-			localStorage.setItem('access_token', action.payload.token)
-			axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.token}`;
 			stateCopy.initialized = false
 			stateCopy.user.loggedIn = true
 			stateCopy.user.id = action.payload.id
@@ -141,9 +136,9 @@ export const reducer = (state, action) => {
 			let stateCopy = JSON.parse(JSON.stringify(state))
 			return stateCopy
 		}
-		case "SET_ADMIN" : {
+		case "SET_ROLE" : {
 			let stateCopy = JSON.parse(JSON.stringify(state))
-			stateCopy.isAdmin = action.payload
+			stateCopy.user.isAdmin = action.payload
 			return stateCopy
 		}
 	}
