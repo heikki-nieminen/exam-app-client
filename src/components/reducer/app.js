@@ -12,6 +12,9 @@ export const reducer = (state, action) => {
 			stateCopy.initialized = false
 			stateCopy.user.loggedIn = true
 			stateCopy.user.id = action.payload.id
+			if(action.payload.role === "admin") {
+				stateCopy.user.isAdmin = true
+			}
 			stateCopy.user.role = action.payload.role
 			stateCopy.user.token = action.payload.token
 			return {...stateCopy, alert: ""}

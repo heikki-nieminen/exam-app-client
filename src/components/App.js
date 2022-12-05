@@ -5,6 +5,7 @@ import React, {useEffect, useReducer, useState} from "react"
 import {reducer} from "./reducer/app"
 import Login from "./Login"
 import Register from "./Register"
+import axios from "axios"
 
 const initialState = {
 	server:       "https://localhost:8080",
@@ -27,8 +28,33 @@ export const App = () => {
 	const [content, dispatch] = useReducer(reducer, initialState)
 	
 	useEffect(() => {
-		console.log("EFFECT TESTI")
-	}, [])
+		console.log("USE EFFECT")
+		
+		const getUserData = async () => {
+			const token = localStorage.getItem('access_token')
+			if (token) {
+				try {
+					axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+					console.log("AXIOS")
+					const userData = await axios({
+						method: 'get', url: content.server + '/RequestAccess'
+					})
+					console.log("HMM")
+					console.log(userData.data)
+					dispatch({
+						type: "SET_USER", payload: {id: userData.data.id, role: userData.data.role, name: userData.data.username}
+					})
+				} catch (err) {
+					if (err.response.data.message === 'Token expired') {
+						localStorage.removeItem('access_token')
+					}
+				}
+			}
+			
+		}
+		getUserData()
+		console.log(content.user)
+	}, [content.user.loggedIn])
 	
 	return (<div>
 		<ContentContext.Provider value={content}>

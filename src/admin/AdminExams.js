@@ -2,7 +2,7 @@ import {Link, Navigate} from "react-router-dom"
 import {useContext, useEffect, useState} from "react"
 import axios from "axios"
 import {ContentContext, ContentDispatchContext} from "../components/context/ContentContext"
-import {AccessDenied} from "../client/AccessDenied"
+import {AccessDenied} from "../user/AccessDenied"
 
 const server = "https://localhost:8080"
 
@@ -32,7 +32,7 @@ const AdminExams = (props) => {
 	
 	const deleteExam = async (id) => {
 		try {
-			let res = await axios({
+			const res = await axios({
 				method: 'delete',
 				url:    server + '/exam',
 				data:   {id: id}
@@ -44,7 +44,7 @@ const AdminExams = (props) => {
 	if (content.user.isAdmin) {
 		return (<div>
 			<ul>{content.exams.map((item, index) => {
-				return (<li key={index}><Link key={index} to={`/exam?id=${item.id}`} onClick={() => {
+				return (<li key={index}><Link key={index} to={`/admin/exam?id=${item.id}`} onClick={() => {
 					dispatch({type: "INITIALIZE_DATA", payload: false})
 					dispatch({
 						type:    "SET_EXAM_ID",
