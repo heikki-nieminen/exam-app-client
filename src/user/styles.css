@@ -67,6 +67,10 @@
     display: flex;
 }
 
+.question-box.answered {
+    background-color: #61b612;
+}
+
 .question-buttons {
     margin-top: 1.5rem;
     margin-left: 0.25rem;

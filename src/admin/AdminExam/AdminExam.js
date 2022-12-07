@@ -61,7 +61,6 @@ export const AdminExam = (props) => {
 								{content.exam.questions.map((item, index) => {
 									return (<AdminQuestion key={index} id={index} question={item}/>)
 								})}
-								<button>Tallenna vastaukset</button>
 							</>
 							:
 							<>

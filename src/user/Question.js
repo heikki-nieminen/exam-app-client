@@ -27,25 +27,41 @@ export const Question = (props) => {
 		}
 		if (!initializeData) {
 			getAnswers(props.question.id)
+			console.log("USER EXAM: ",props.userExam)
+			let userExamCopy = props.userExam.slice()
+			userExamCopy[props.id].answer = {}
+			props.setUserExam(userExamCopy)
 		}
 	}, [])
+	
+	let questionClassname
+	if(props.userExam[props.id].answered){
+		questionClassname = "question-box answered"
+	}
+	else{
+		questionClassname = "question-box"
+	}
+	
+	
+	
 	
 	return (
 		<>
 			{initializeData ?
 				<div className="question">
-					<div className="question-box">
+					<div className={questionClassname}>
 						<div className="question-title-container">
 							<p className="question-title">{props.question.question}</p>
 						</div>
 						<div className="answers-container">
 							{props.question.answers ?
-								<>
+								<form>
 									{props.question.answers.map((item, index) => {
+										
 										return <Answer key={index} questionId={props.id} answer={item}
-										               id={index} question={props.question}/>
+										               id={index} question={props.question} setUserExam={props.setUserExam} userExam={props.userExam}/>
 									})}
-								</>
+								</form>
 								:
 								<>
 									Ei vastauksia

@@ -1,12 +1,13 @@
-import {useContext, useEffect, useState} from "react"
+import {useContext, useEffect, useReducer, useState} from "react"
 import axios from "axios"
 import './styles.css'
 import {useSearchParams} from "react-router-dom"
 import {Question} from "./Question"
 import {ContentContext, ContentDispatchContext} from "../components/context/ContentContext"
 
+
 const Exam = (props) => {
-	
+	const [userExam, setUserExam] = useState([])
 	let [searchParams] = useSearchParams()
 	const [isExamData, setIsExamData] = useState(false)
 	const [initializeData, setInitializeData] = useState(false)
@@ -27,6 +28,8 @@ const Exam = (props) => {
 					url:    content.server + '/exam?id=' + examId
 				})
 				dispatch({type: "SET_EXAM", payload: result.data})
+				result.data.questions.map((item, index) => setUserExam(current => [...current, {question: item.question, answered: false}]))
+				console.log("USEREXAM: ",userExam)
 				setInitializeData(true)
 				setIsExamData(true)
 			} catch (err) {
@@ -53,9 +56,20 @@ const Exam = (props) => {
 				{content.exam.questions ?
 					<>
 						{content.exam.questions.map((item, index) => {
-							return (<Question key={index} question={item} id={index}/>)
+							return (<Question key={index} question={item} id={index} setUserExam={setUserExam} userExam={userExam}/>)
 						})}
-						<button>Tallenna vastaukset</button>
+						<button onClick={(e)=>{
+							
+							if(!userExam.reduce((a,b) =>!a ? false : !!b.answered , true)){
+								console.log("Vastaa kaikkiin kysymyksiin")
+							}
+							else{
+								console.log("Vastaukset tallennettu")
+							}
+						}}>Tallenna vastaukset</button>
+						<br/>
+						<p>TESTI:</p>
+						{userExam.map((item, index)=><div>{item.question}{item.answered && <>{item.answer.id}</>}</div>)}
 					</>
 					:
 					<>
