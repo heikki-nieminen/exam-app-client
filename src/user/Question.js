@@ -28,14 +28,14 @@ export const Question = (props) => {
 		if (!initializeData) {
 			getAnswers(props.question.id)
 			console.log("USER EXAM: ",props.userExam)
-			let userExamCopy = props.userExam.slice()
-			userExamCopy[props.id].answer = {}
+			let userExamCopy = JSON.parse(JSON.stringify(props.userExam))
+			userExamCopy.questions[props.id].answer = {}
 			props.setUserExam(userExamCopy)
 		}
 	}, [])
 	
 	let questionClassname
-	if(props.userExam[props.id].answered){
+	if(props.userExam.questions[props.id].answered){
 		questionClassname = "question-box answered"
 	}
 	else{

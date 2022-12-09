@@ -4,9 +4,9 @@ export const Answer = (props) => {
 	return (<div className="answer">
 			<div>
 				<input type="radio" name="answer" value={props.answer.answer} onChange={(e)=>{
-					let copyUserExam = props.userExam.slice()
-					copyUserExam[props.questionId].answered = e.target.checked
-					copyUserExam[props.questionId].answer = {id: props.answer.id}
+					let copyUserExam = JSON.parse(JSON.stringify(props.userExam))
+					copyUserExam.questions[props.questionId].answered = e.target.checked
+					copyUserExam.questions[props.questionId].answer = props.answer.id
 					props.setUserExam(copyUserExam)
 				}}/>
 				{props.answer.answer}
