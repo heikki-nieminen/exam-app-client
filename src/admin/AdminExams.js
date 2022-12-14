@@ -44,14 +44,14 @@ const AdminExams = (props) => {
 	if (content.user.isAdmin) {
 		return (<div>
 			<ul>{content.exams.map((item, index) => {
-				return (<li key={index}><Link key={index} to={`/admin/exam?id=${item.id}`} onClick={() => {
+				return (<li key={index}><Link id={item.name} key={index} to={`/admin/exam?id=${item.id}`} onClick={() => {
 					dispatch({type: "INITIALIZE_DATA", payload: false})
 					dispatch({
 						type:    "SET_EXAM_ID",
 						payload: {id: item.id, initialized: !content.initialized}
 					})
 				}}>{item.name}</Link>
-					<button onClick={async () => {
+					<button id={`delete-${item.name}`} onClick={async () => {
 						await deleteExam(item.id)
 						dispatch({type: "REMOVE_EXAM", payload: index})
 					}}>Poista tentti
@@ -59,7 +59,7 @@ const AdminExams = (props) => {
 				</li>)
 			})}</ul>
 			
-			{!addExam ? <button onClick={() => {
+			{!addExam ? <button id="add-exam-button" onClick={() => {
 					setAddExam(true)
 				}}>Uusi tentti</button>
 				:
@@ -72,9 +72,9 @@ const AdminExams = (props) => {
 
 const AddExam = (props) => {
 	return (<div>
-		<input id="add-exam" type="text" placeholder="Tentin nimi"/>
-		<button onClick={async () => {
-			let exam = document.getElementById("add-exam").value
+		<input id="add-exam-input" type="text" placeholder="Tentin nimi"/>
+		<button id="submit-add-exam" onClick={async () => {
+			let exam = document.getElementById("add-exam-input").value
 			try {
 				let res = await axios({
 					method: 'post',

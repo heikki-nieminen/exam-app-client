@@ -27,6 +27,9 @@ const Exam = (props) => {
 					method: 'get',
 					url:    content.server + '/exam?id=' + examId
 				})
+				if(result.data.completed === "true"){
+					console.log("Tentti löytyi")
+				}
 				dispatch({type: "SET_EXAM", payload: result.data})
 				
 				const questions = result.data.questions.map((item, index) => ({
@@ -47,9 +50,7 @@ const Exam = (props) => {
 		getExam(searchParams.get('id'))
 		
 	}, [])
-	
-	console.log("NIMI: ", content.exam.name)
-	
+
 	return (<div className="exam-container">
 		{initializeData &&
 			<>
@@ -81,7 +82,7 @@ const Exam = (props) => {
 								<br/>
 								<p>TESTI:</p>
 								{userExam.questions.map((item, index) =>
-									<div>{item.question}{item.answered && <>{item.answer.id}</>}</div>)}
+									<div>{item.question}{item.answered && <>{item.answer}</>}</div>)}
 							</>
 							:
 							<>
@@ -108,6 +109,17 @@ const saveAnswer = async (props) => {
 		})
 	} catch (err) {
 		console.log(err)
+	}
+}
+
+const saveExam = async (props) => {
+	try{
+		const result = await axios({
+			method: "post",
+			url: props.server + '/'
+		})
+	}catch(err){
+	
 	}
 }
 

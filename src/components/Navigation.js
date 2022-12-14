@@ -19,7 +19,7 @@ const Navigation = (props) => {
 				<li><Link to={'/'}>Etusivu</Link></li>
 				{content.user.loggedIn &&
 					<>
-						<li><Link to={adminPrefix+'/exams'}>Tentit</Link></li>
+						<li><Link id="exams-link" to={adminPrefix+'/exams'}>Tentit</Link></li>
 						
 						{content.user.isAdmin &&
 							<li><Link to={adminPrefix+'/users'}>Käyttäjät</Link></li>
@@ -30,12 +30,12 @@ const Navigation = (props) => {
 			<ul className="nav right">
 				{content.user.loggedIn ?
 					<li>
-						<Link to='/' onClick={() => {dispatch({type: "LOGOUT"})}}>Kirjaudu ulos</Link>
+						<Link to='/' id="logout-button" onClick={() => {dispatch({type: "LOGOUT"})}}>Kirjaudu ulos</Link>
 					</li>
 					:
 					<>
 						<li>
-							<a className="login-button" onClick={(e) => {
+							<a id="login" className="login-button" onClick={(e) => {
 								e.preventDefault()
 								props.setLoginState(true)
 							}}>Kirjaudu

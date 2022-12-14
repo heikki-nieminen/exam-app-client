@@ -1,4 +1,3 @@
-
 export const Answer = (props) => {
 	
 	return (<div className="answer">

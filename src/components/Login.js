@@ -13,6 +13,7 @@ const Login = (props) => {
 					username: username, password: password
 				}
 			})
+			console.log("AXIOS PYYNTÖ MENI LÄPI")
 			if (res.data.correct === true) {
 				console.log(res.data)
 				
@@ -49,11 +50,11 @@ const Login = (props) => {
 			<input id="pass" name="password" placeholder="Salasana" type="password" required onKeyPress={(e) => {
 				if (e.key === "Enter") {
 					e.preventDefault()
-					document.getElementById("login-button").click()
+					document.getElementById("login-submit").click()
 				}
 			}}/>
 		</form>
-		<button id="login-button" onClick={() => {
+		<button id="login-submit" onClick={() => {
 			login(document.getElementById("user").value, document.getElementById("pass").value)
 		}}>Kirjaudu
 		</button>
