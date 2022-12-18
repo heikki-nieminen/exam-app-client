@@ -3,8 +3,8 @@ import Navigation from "./Navigation"
 import Content from "./Content"
 import React, {useEffect, useReducer, useState} from "react"
 import {reducer} from "./reducer/app"
-import Login from "./Login"
-import Register from "./Register"
+import Login from "./Login/Login"
+import Register from "./Register/Register"
 import axios from "axios"
 
 const initialState = {
@@ -50,19 +50,18 @@ export const App = () => {
 					}
 				}
 			}
-			
 		}
 		getUserData()
 		console.log(content.user)
 	}, [content.user.loggedIn])
 	
-	return (<div>
+	return (<div className="app">
 		<ContentContext.Provider value={content}>
 			<ContentDispatchContext.Provider value={dispatch}>
 				<Navigation setLoginState={setLoginState} setRegisterState={setRegisterState}/>
 				<Content/>
-				{loginState && <Login setLoginState={setLoginState}/>}
-				{registerState && <Register setRegisterState={setRegisterState}/>}
+				{loginState && <Login setLoginState={setLoginState} setRegisterState={setRegisterState}/>}
+				{registerState && <Register setRegisterState={setRegisterState} setLoginState={setLoginState}/>}
 			</ContentDispatchContext.Provider>
 		</ContentContext.Provider>
 	</div>)

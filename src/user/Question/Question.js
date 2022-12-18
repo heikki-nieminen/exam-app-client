@@ -1,8 +1,8 @@
-import './styles.css'
+import '../styles.css'
 import {useContext, useEffect, useState} from "react"
 import axios from "axios"
-import {Answer} from "./Answer"
-import {ContentContext, ContentDispatchContext} from "../components/context/ContentContext"
+import {Answer} from "../Answer"
+import {ContentContext, ContentDispatchContext} from "../../components/context/ContentContext"
 
 export const Question = (props) => {
 	const [initializeData, setInitializeData] = useState(false)

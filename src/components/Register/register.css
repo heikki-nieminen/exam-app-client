@@ -1,0 +1,50 @@
+.invalid-email {
+    background-color: #E88688;
+}
+.valid-email {
+
+}
+
+.register-form{
+    margin-top: 3rem;
+    height: calc(100% - 5rem);
+    width: 100%;
+}
+
+.register-input{
+    box-sizing: border-box;
+    width: 18rem;
+    margin-left: 2rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.register-submit {
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 0;
+    background-color: #7d94b5;
+    font-size: 1.5rem;
+    width: 18rem;
+    height: 2.5rem;
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+}
+
+.register-window-text{
+    margin-left: 2rem;
+}
+
+.register-window {
+    margin-top: 5rem;
+    left: calc(50% - 11rem);
+    align-self: center;
+    width: 22rem;
+    height: 22rem;
+    position: fixed;
+    border-style: solid;
+    border-radius: 5px;
+    background-color: #75c9b7;
+    box-shadow:  0 0 0 9999px rgba(0, 0, 0, 0.8);
+}

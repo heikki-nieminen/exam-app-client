@@ -13,6 +13,11 @@ const Navigation = (props) => {
 		adminPrefix = "admin"
 	}
 	
+	const hoverLink = (element) => {
+		element.className = "hover"
+	}
+	
+	
 	return (
 		<div className="nav-bar">
 			<ul className="nav">
@@ -41,7 +46,7 @@ const Navigation = (props) => {
 							}}>Kirjaudu
 							</a>
 						</li>
-						<li><a className="register-button" onClick={(e) => {
+						<li><a id="register" className="register-button" onClick={(e) => {
 							e.preventDefault()
 							props.setRegisterState(true)
 						}}>Rekisteröidy</a></li>

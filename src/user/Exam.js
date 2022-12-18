@@ -2,7 +2,7 @@ import {useContext, useEffect, useState} from "react"
 import axios from "axios"
 import './styles.css'
 import {useSearchParams} from "react-router-dom"
-import {Question} from "./Question"
+import {Question} from "./Question/Question"
 import {ContentContext, ContentDispatchContext} from "../components/context/ContentContext"
 
 const Exam = (props) => {

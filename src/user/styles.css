@@ -1,5 +1,5 @@
 .exam-container {
-    width: fit-content;
+    width: calc(100% - 4rem);
     margin: 2rem;
 }
 
@@ -25,11 +25,17 @@
     justify-self: right;
 }
 
+.question {
+    justify-content: center;
+}
+
 .question-box {
     border-style: solid;
     border-radius: 5px;
     margin-top: 1.5rem;
     width: 25rem;
+    background-color:#c7ddcc;
+    justify-content: center;
 }
 
 .question-title {

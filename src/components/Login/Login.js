@@ -1,10 +1,23 @@
 import axios from "axios"
-import {useContext} from "react"
-import {ContentContext, ContentDispatchContext} from "./context/ContentContext"
+import {useContext, useEffect} from "react"
+import {ContentContext, ContentDispatchContext} from "../context/ContentContext"
+import '../styles.css'
+import './login.css'
 
 const Login = (props) => {
 	const content = useContext(ContentContext)
 	const dispatch = useContext(ContentDispatchContext)
+	
+	useEffect(()=>{
+		const closeLogin = e =>{
+			console.log(e)
+			if(e.target.id !== "login" && !e.target.classList.contains("login-popup")){
+			props.setLoginState(false)
+			}
+		}
+		document.body.addEventListener("click", closeLogin)
+		return ()=>document.body.removeEventListener("click", closeLogin)
+	},[])
 	
 	const login = async (username, password) => {
 		try {
@@ -20,7 +33,7 @@ const Login = (props) => {
 				localStorage.setItem('access_token', res.data.token)
 				axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
 				
-				dispatch({type: "LOGIN", payload: {id: res.data.id, role: res.data.role, token: res.data.token}})
+				dispatch({type: "LOGIN", payload: {id: res.data.id, role: res.data.role, token: res.data.token, name: res.data.name}})
 				//props.dispatch({type: "SET_USER", payload: {role: res.data.role, id: res.data.id}})
 				props.setLoginState(false)
 			}
@@ -40,24 +53,29 @@ const Login = (props) => {
 		}
 	}
 	
-	return (<div className="login-window">
+	return (<div className="login-window login-popup" id="login-window">
 		<button className="close-window" onClick={() => {
 			props.setLoginState(false)
 		}}>X
 		</button>
-		<form id="login-form" className="login-form">
-			<input id="user" name="username" placeholder="Käyttäjätunnus" required/><br/>
-			<input id="pass" name="password" placeholder="Salasana" type="password" required onKeyPress={(e) => {
+		<form id="login-form" className="login-form login-popup">
+			<input id="user" className="login-input login-popup" name="username" placeholder="Käyttäjätunnus" required/><br/>
+			<input id="pass" className="login-input login-popup" name="password" placeholder="Salasana" type="password" required onKeyPress={(e) => {
 				if (e.key === "Enter") {
 					e.preventDefault()
 					document.getElementById("login-submit").click()
 				}
 			}}/>
+			<button id="login-submit" className="login-popup" onClick={(e) => {
+				e.preventDefault()
+				login(document.getElementById("user").value, document.getElementById("pass").value)
+			}}>Kirjaudu
+			</button>
 		</form>
-		<button id="login-submit" onClick={() => {
-			login(document.getElementById("user").value, document.getElementById("pass").value)
-		}}>Kirjaudu
-		</button>
+		<div className="login-window-text login-popup">Ei tunnusta? <a id="register" className="register-button" onClick={(e) => {
+			e.preventDefault()
+			props.setRegisterState(true)
+		}}>Rekisteröidy tästä</a></div>
 	</div>)
 }
 

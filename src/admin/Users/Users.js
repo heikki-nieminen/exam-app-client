@@ -1,6 +1,5 @@
 import {useContext, useEffect, useState} from "react"
 import axios from "axios"
-import '../styles.css'
 import {ContentContext} from "../../components/context/ContentContext"
 import {User} from "./User"
 import {AccessDenied} from "../../user/AccessDenied"

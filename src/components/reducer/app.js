@@ -17,6 +17,7 @@ export const reducer = (state, action) => {
 			}
 			stateCopy.user.role = action.payload.role
 			stateCopy.user.token = action.payload.token
+			stateCopy.user.name = action.payload.name
 			return {...stateCopy, alert: ""}
 		}
 		case "LOGOUT": {
@@ -34,7 +35,7 @@ export const reducer = (state, action) => {
 			if(action.payload.role === "admin"){
 				stateCopy.user.isAdmin = true
 			}
-			stateCopy.user.username = action.payload.name
+			stateCopy.user.name = action.payload.name
 			stateCopy.user.loggedIn = true
 			return stateCopy
 		}

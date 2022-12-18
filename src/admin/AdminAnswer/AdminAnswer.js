@@ -15,7 +15,6 @@ export const AdminAnswer = (props) => {
 	return (<div className="answer">
 		{!editAnswer ?
 			<div>
-				<input type="checkbox" value={props.answer.answer}/>
 				{props.answer.answer}
 			</div>
 			:

@@ -3,13 +3,14 @@ import AdminExams from "../admin/AdminExams"
 import {useContext, useEffect} from "react"
 import {ContentContext, ContentDispatchContext} from "./context/ContentContext"
 import axios from "axios"
-import {Home} from "../user/Home"
+import {About} from "./pages/About/About"
 import {Exams} from "../user/Exams"
 import {NotFound} from "./NotFound"
 import {AccessDenied} from "../user/AccessDenied"
 import Exam from "../user/Exam"
 import {Users} from "../admin/Users/Users"
 import {AdminExam} from "../admin/AdminExam/AdminExam"
+import {Home} from "./pages/Home/Home"
 
 const ProtectedRoute = ({isAdmin}) => {
 	if (isAdmin === true) {
@@ -35,7 +36,7 @@ const Content = () => {
 	return (<div>
 		<Routes>
 			<Route path="*" element={<NotFound/>}/>
-			<Route path="/" element={<Home/>}/>
+			<Route path="/" element={content.user.loggedIn ? <Home/> :<About/>}/>
 			<Route element={<UserRoute isLoggedIn={content.user.loggedIn}/>}>
 				<Route path="exams" element={<Exams/>}/>
 				<Route path="exam" element={<Exam/>}/>

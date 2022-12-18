@@ -1,4 +1,3 @@
-import '../styles.css'
 import {useContext, useEffect, useState} from "react"
 import edit from '../img/edit.png'
 import remove from '../img/remove.png'
