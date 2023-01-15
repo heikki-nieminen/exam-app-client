@@ -1,4 +1,4 @@
-import '../styles.css'
+import './question.css'
 import {useContext, useEffect, useState} from "react"
 import axios from "axios"
 import {Answer} from "../Answer"
@@ -41,9 +41,6 @@ export const Question = (props) => {
 	else{
 		questionClassname = "question-box"
 	}
-	
-	
-	
 	
 	return (
 		<>

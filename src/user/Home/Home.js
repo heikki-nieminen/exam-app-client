@@ -1,5 +1,5 @@
 import {useContext} from "react"
-import {ContentContext} from "../../context/ContentContext"
+import {ContentContext} from "../../components/context/ContentContext"
 import './home.css'
 
 export const Home = () => {

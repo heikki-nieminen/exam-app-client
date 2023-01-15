@@ -1,0 +1,43 @@
+.exam-container {
+    width: 30rem;
+    margin: 2rem;
+    background-color: #75c9b7;
+    position: fixed;
+    left: calc(50% - 15rem);
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.exam-title-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.exam-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.exam-image {
+    margin-left: 1rem;
+    height: 2rem;
+}
+
+.save-answers {
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 0;
+    background-color: #7d94b5;
+    font-size: 1.5rem;
+    width: 18rem;
+    height: 2.5rem;
+    margin-left: 2.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.exam-data {
+
+}

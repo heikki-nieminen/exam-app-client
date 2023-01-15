@@ -1,0 +1,19 @@
+.exams-list {
+    width: 100%;
+    list-style: none;
+    text-align: center;
+}
+
+.exam-link {
+    text-decoration: none;
+    color: black;
+    font-size: 2rem;
+}
+
+.exam-link:hover{
+    color: #6c6c6c;
+}
+
+.exams-list Link {
+    font-size: 3rem;
+}

@@ -6,6 +6,10 @@ import {reducer} from "./reducer/app"
 import Login from "./Login/Login"
 import Register from "./Register/Register"
 import axios from "axios"
+import {Alerts} from "./Alerts"
+import {io} from 'socket.io-client'
+
+const socket = io("https://localhost:8080")
 
 const initialState = {
 	server:       "https://localhost:8080",
@@ -26,6 +30,31 @@ export const App = () => {
 	const [loginState, setLoginState] = useState(false)
 	const [registerState, setRegisterState] = useState(false)
 	const [content, dispatch] = useReducer(reducer, initialState)
+	const [isConnected, setIsConnected] = useState(socket.connected)
+	const [lastPong, setLastPong] = useState(null)
+	
+	useEffect(()=>{
+		socket.on('connect', () => {
+			setIsConnected(true)
+		})
+		socket.on('disconnect', ()=>{
+			setIsConnected(false)
+		})
+		socket.on('pong', ()=>{
+			setLastPong(new Date().toISOString());
+		})
+		socket.on('message', (data)=>{
+			console.log("SOCKET: ", data)
+		})
+		socket.on('exam-change', (data)=>{
+			dispatch({type: "SET_ALERT", payload: "Tenttidataa muutettu"})
+		})
+		return () => {
+			socket.off('connect');
+			socket.off('disconnect');
+			socket.off('pong');
+		}
+	},[])
 	
 	useEffect(() => {
 		console.log("USE EFFECT")
@@ -35,11 +64,9 @@ export const App = () => {
 			if (token) {
 				try {
 					axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-					console.log("AXIOS")
 					const userData = await axios({
 						method: 'get', url: content.server + '/RequestAccess'
 					})
-					console.log("HMM")
 					console.log(userData.data)
 					dispatch({
 						type: "SET_USER", payload: {id: userData.data.id, role: userData.data.role, name: userData.data.username}
@@ -59,6 +86,7 @@ export const App = () => {
 		<ContentContext.Provider value={content}>
 			<ContentDispatchContext.Provider value={dispatch}>
 				<Navigation setLoginState={setLoginState} setRegisterState={setRegisterState}/>
+				{content.alert && <Alerts />}
 				<Content/>
 				{loginState && <Login setLoginState={setLoginState} setRegisterState={setRegisterState}/>}
 				{registerState && <Register setRegisterState={setRegisterState} setLoginState={setLoginState}/>}

@@ -4,13 +4,13 @@ import {useContext, useEffect} from "react"
 import {ContentContext, ContentDispatchContext} from "./context/ContentContext"
 import axios from "axios"
 import {About} from "./pages/About/About"
-import {Exams} from "../user/Exams"
+import {Exams} from "../user/Exams/Exams"
 import {NotFound} from "./NotFound"
 import {AccessDenied} from "../user/AccessDenied"
-import Exam from "../user/Exam"
+import Exam from "../user/Exam/Exam"
 import {Users} from "../admin/Users/Users"
 import {AdminExam} from "../admin/AdminExam/AdminExam"
-import {Home} from "./pages/Home/Home"
+import {Home} from "../user/Home/Home"
 
 const ProtectedRoute = ({isAdmin}) => {
 	if (isAdmin === true) {

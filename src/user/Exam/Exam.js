@@ -1,9 +1,9 @@
 import {useContext, useEffect, useState} from "react"
 import axios from "axios"
-import './styles.css'
+import './exam.css'
 import {useSearchParams} from "react-router-dom"
-import {Question} from "./Question/Question"
-import {ContentContext, ContentDispatchContext} from "../components/context/ContentContext"
+import {Question} from "../Question/Question"
+import {ContentContext, ContentDispatchContext} from "../../components/context/ContentContext"
 
 const Exam = (props) => {
 	const [userExam, setUserExam] = useState({examId: 0, questions: []})
@@ -62,12 +62,14 @@ const Exam = (props) => {
 							</div>
 						</div>
 						{content.exam.questions ?
-							<>
+							<div className="exam-data">
 								{content.exam.questions.map((item, index) => {
 									return (
 										<Question key={index} question={item} id={index} setUserExam={setUserExam} userExam={userExam}/>)
 								})}
-								<button onClick={(e) => {
+								<div className="submit-exam">
+								
+								<button className="save-answers" onClick={(e) => {
 									
 									if (!userExam.questions.reduce((a, b) => !a ? false : !!b.answered, true)) {
 										console.log("Vastaa kaikkiin kysymyksiin")
@@ -79,11 +81,12 @@ const Exam = (props) => {
 									}
 								}}>Tallenna vastaukset
 								</button>
-								<br/>
-								<p>TESTI:</p>
+								</div>
+								
+								{/*<p>TESTI:</p>
 								{userExam.questions.map((item, index) =>
-									<div>{item.question}{item.answered && <>{item.answer}</>}</div>)}
-							</>
+									<div>{item.question}{item.answered && <>{item.answer}</>}</div>)}*/}
+							</div>
 							:
 							<>
 								<p>Ei sisältöä</p>

@@ -23,6 +23,7 @@ const Register = (props) => {
 		console.log(password)
 		let res
 		try {
+			console.log("Registering new user")
 			res = await axios({
 				method: 'post',
 				url:    content.server + '/register',
@@ -53,14 +54,9 @@ const Register = (props) => {
 	}
 	
 	const handleRegisterClick = async () => {
-		if (document.getElementById("reg-pass1").value !== document.getElementById("reg-pass2").value) {
-			dispatch({type: "SET_ALERT", payload: "Salasanat eivät täsmää"})
-		} else {
-			register(document.getElementById("reg-user").value, document.getElementById("reg-pass1").value, document.getElementById("reg-email").value)
-		}
+		console.log("HANDLE")
+		
 	}
-	
-	let testi
 	
 	return (<div className="register-window register-popup">
 		<button className="close-window" onClick={() => {
@@ -74,18 +70,26 @@ const Register = (props) => {
 			       placeholder="Vahvista salasana"/><br/>
 			<input id="reg-email" className="register-input register-popup" type="email" placeholder="Sähköposti"
 			       onChange={(e) => {
-				       if (validateEmail(e.target.value)) {
+				       /*if (validateEmail(e.target.value)) {
 					       e.target.className = "register-input register-popup valid-email"
 					       document.getElementById("submit-register").disabled = false
 				       } else {
 					       e.target.className = "register-input register-popup invalid-email"
 					       document.getElementById("submit-register").disabled = true
 				       }
-			       }}/><br/>
-			<button className="register-submit register-popup" id="submit-register" onClick={handleRegisterClick} disabled={true}>Luo käyttäjä</button>
+			       */}}/><br/>
+			<button className="register-submit register-popup" id="submit-register" onClick={(e)=>{
+				e.preventDefault()
+				if (document.getElementById("reg-pass1").value !== document.getElementById("reg-pass2").value) {
+					dispatch({type: "SET_ALERT", payload: "Salasanat eivät täsmää"})
+				} else {
+					console.log("REGISTER")
+					register(document.getElementById("reg-user").value, document.getElementById("reg-pass1").value, document.getElementById("reg-email").value)
+				}
+			}}>Luo käyttäjä</button>
 		</form>
 		<div className="register-window-text register-popup">
-			Onko sinulla tunnus? <a id="login" className="login-button" onClick={(e) => {
+			Onko sinulla jo tunnus? <a id="login" className="login-button" onClick={(e) => {
 				e.preventDefault()
 				props.setLoginState(true)
 			}}>Kirjaudu tästä
